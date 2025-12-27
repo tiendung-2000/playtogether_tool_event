@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Pờ Lây Mon Tu Đơ Siêu Cấp Víp</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="app-wrapper">
+  <div class="card">
+
+    <div class="toolbar">
+      <h3>Pờ Lây Mon Tu Đơ Siêu Cấp Víp</h3>
+
+      <div class="grid-settings">
+        <label>
+          Hàng
+          <input type="number" id="rowsInput" value="4" min="1">
+        </label>
+
+        <label>
+          Cột
+          <input type="number" id="colsInput" value="8" min="1">
+        </label>
+
+        <button id="applyGrid">Xác Nhận</button>
+        <button id="resetGrid" class="danger">Reset</button>
+      </div>
+    </div>
+
+    <div class="icon-list" id="iconList"></div>
+
+    <div class="grid-wrapper">
+      <div class="grid" id="grid"></div>
+    </div>
+
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
