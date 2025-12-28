@@ -14,17 +14,20 @@ const DEFAULT_ICON = `icons/Icon_Default.png`;
 for (let i = 1; i <= 9; i++) {
   const icon = document.createElement("div");
   icon.className = "icon-item";
-  icon.draggable = true;
 
   const img = document.createElement("img");
   img.src = `icons/Icon_0${i}.png`;
+  img.draggable = true;
 
   icon.appendChild(img);
   iconList.appendChild(icon);
 
-  icon.addEventListener("dragstart", () => {
+  // attach dragstart to the image itself (dragstart does not bubble)
+  img.addEventListener("dragstart", (e) => {
     draggedSrc = img.src;
     draggedFromCell = null;
+    // set drag data/ghost image for better UX
+    try { e.dataTransfer.setData('text/plain', img.src); } catch (err) {}
   });
 }
 
@@ -172,9 +175,8 @@ function handleDrop(targetCell) {
 
   // From ICON LIST → GRID
   if (!draggedFromCell) {
-    if (!targetImg) {
-      placeIcon(targetCell, draggedSrc);
-    }
+    // always place the dragged icon into the target cell (replace existing/default)
+    placeIcon(targetCell, draggedSrc);
     return;
   }
 
