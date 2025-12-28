@@ -35,10 +35,43 @@
       <div class="grid" id="grid"></div>
     </div>
 
+    <!-- MUSIC PLAYER (moved outside .app-wrapper for viewport-fixed positioning) -->
+
   </div>
 </div>
 
-<script src="script.js"></script>
+  <!-- MUSIC PLAYER (viewport fixed) -->
+  <div class="music-player">
+    <audio id="audioPlayer" preload="metadata"></audio>
+    <div class="player-card">
+
+      <div class="controls-row">
+        <!-- <div class="left-actions">
+          <button id="muteBtn" class="ctrl small" aria-label="Toggle mute">🔊</button>
+          <input type="range" id="volume" min="0" max="1" step="0.01" value="0.8" aria-label="Volume">
+        </div> -->
+        <div class="center-controls">
+          <button id="prevBtn" class="ctrl">⏮</button>
+          <button id="playPauseBtn" class="ctrl">▶</button>
+          <button id="nextBtn" class="ctrl">⏭</button>
+        </div>
+      </div>
+
+      <div class="track-row">
+        <div class="track-title">
+          <span class="track-icon">♪</span>
+          <span id="currentTrack">No track</span>
+        </div>
+        <div class="progress-row">
+          <span id="currentTime">00:00</span>
+          <input type="range" id="seekBar" min="0" max="100" value="0">
+          <span id="durationTime">00:00</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 <a class="copyright" href="https://www.facebook.com/isnotdino" target="_blank" rel="noopener noreferrer">Make by D ú n g</a>
 </body>
 </html>
