@@ -10,6 +10,35 @@ let draggedSrc = null;
 let draggedFromCell = null;
 const DEFAULT_ICON = `icons/Icon_Default.png`;
 
+// Fit the whole .card into the viewport by scaling .app-wrapper
+function fitToScreen() {
+  const wrapper = document.querySelector('.app-wrapper');
+  const card = wrapper.querySelector('.card');
+  if (!card || !wrapper) return;
+
+  // measure natural card size (without transform)
+  // temporarily reset transform to measure correctly
+  const prevTransform = wrapper.style.transform;
+  wrapper.style.transform = 'translate(-50%, -50%) scale(1)';
+
+  const cardRect = card.getBoundingClientRect();
+  const vpW = window.innerWidth;
+  const vpH = window.innerHeight;
+
+  // compute scale with a small padding factor
+  const paddingFactor = 0.94;
+  const scaleW = (vpW / cardRect.width) * paddingFactor;
+  const scaleH = (vpH / cardRect.height) * paddingFactor;
+  const scale = Math.min(1, scaleW, scaleH);
+
+  wrapper.style.transform = `translate(-50%, -50%) scale(${scale})`;
+}
+
+window.addEventListener('resize', () => {
+  // debounce-ish: schedule next frame
+  requestAnimationFrame(fitToScreen);
+});
+
 /* ================= ICON LIST ================= */
 for (let i = 1; i <= 9; i++) {
   const icon = document.createElement("div");
@@ -34,7 +63,8 @@ for (let i = 1; i <= 9; i++) {
 /* ================= GRID ================= */
 function createGrid(rows, cols) {
   grid.innerHTML = "";
-  grid.style.gridTemplateColumns = `repeat(${cols}, 150px)`;
+  // make columns responsive but keep the column count unchanged
+  grid.style.gridTemplateColumns = `repeat(${cols}, minmax(80px, 1fr))`;
 
   const total = rows * cols;
 
@@ -76,6 +106,9 @@ function createGrid(rows, cols) {
 
     grid.appendChild(cell);
   }
+
+  // after grid changes, ensure layout fits screen
+  requestAnimationFrame(fitToScreen);
 }
 
 /* ================= PLACE ICON ================= */
@@ -207,7 +240,7 @@ applyBtn.addEventListener("click", () => {
 
 resetBtn.addEventListener("click", () => {
   document.querySelectorAll(".grid-cell").forEach(cell => {
-    cell.querySelectorAll("img, .remove-btn").forEach(e => e.remove());
+    placeIcon(cell, DEFAULT_ICON);
   });
 });
 
@@ -216,3 +249,6 @@ createGrid(
   parseInt(rowsInput.value),
   parseInt(colsInput.value)
 );
+
+// ensure initial fit after images/styles applied
+window.addEventListener('load', () => requestAnimationFrame(fitToScreen));

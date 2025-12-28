@@ -50,19 +50,23 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden; /* prevent page scrolling, we'll scale content to fit */
 }
 
 .app-wrapper {
-  transform: scale(0.92);
   position: fixed;
-  top: 0;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  transform-origin: center center;
+  will-change: transform;
 }
 
 .card {
   background: white;
   border-radius: 20px;
   padding: 24px;
-  width: max-content;
+  width: min(95vw, 1200px);
   box-shadow: 0 10px 30px rgba(0,0,0,0.08);
 }
 
@@ -136,9 +140,11 @@ body {
 /* ICON LIST */
 .icon-list {
   display: flex;
+  flex-wrap: wrap; /* allow icons to wrap on smaller screens */
   gap: 12px;
   align-items: center;
   justify-content: center;
+  padding: 8px 6px;
 }
 
 .icon-item {
@@ -149,6 +155,12 @@ body {
   box-shadow: 0 0 0 2px #8B5A2B, inset 0 0 0 2px #8B5A2B, 0 4px 12px rgba(0,0,0,0.1);
   box-sizing: border-box;
   cursor: grab;
+}
+.icon-item {
+  /* make each item flexible so the list is responsive */
+  flex: 0 1 141px; /* won't grow but can shrink below 141px */
+  min-width: 80px;
+  max-width: 180px;
 }
 
 .icon-item img {
@@ -233,16 +245,19 @@ body {
 .grid {
   display: grid;
   gap: 16px;
-  justify-content: center;
+  width: 100%;
+  justify-items: center;
 }
 
 .grid-cell {
-  width: 141px;
-  height: 179px;
+  /* cell width is controlled by grid column; keep a consistent aspect ratio */
   border-radius: 16px;
   border: 2px dashed #c7c7cc;
   position: relative;
   background: #fff;
+  width: 100%;
+  aspect-ratio: 141 / 179;
+  min-width: 60px;
 }
 .grid-cell.drag-over {
   border-color: #007aff;
