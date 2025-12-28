@@ -150,8 +150,8 @@ body {
 }
 
 .icon-item {
-  width: 141px;
-  height: 179px;
+  width: 109px;
+  height: 138px;
   border-radius: 13px;
   overflow: hidden;
   box-shadow: 0 0 0 2px #8B5A2B, inset 0 0 0 2px #8B5A2B, 0 4px 12px rgba(0,0,0,0.1);
@@ -160,7 +160,7 @@ body {
 }
 .icon-item {
   /* make each item flexible so the list is responsive */
-  flex: 0 1 141px; /* won't grow but can shrink below 141px */
+  flex: 0 1 109px; /* won't grow but can shrink below 141px */
   min-width: 80px;
   max-width: 180px;
 }
