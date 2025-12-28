@@ -42,7 +42,7 @@ function createGrid(rows, cols) {
     /* index label */
     const indexLabel = document.createElement("div");
     indexLabel.className = "cell-index";
-    indexLabel.textContent = i;
+    indexLabel.textContent = i + 1;
     cell.appendChild(indexLabel);
 
     /* drag events */
